@@ -40,18 +40,14 @@ class _LoginPageState extends State<LoginPage> {
                 Assets.icons.homeResto.path,
                 width: 100,
                 height: 100,
-                color: AppColors.primary,
+                color: AppColors.red,
               )),
           const SpaceHeight(24.0),
           const SpaceHeight(8.0),
           const Center(
             child: Text(
-              'Akses Login Kasir',
-              style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: Colors.grey,
-              ),
+              'Aplikasi Kasir',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
             ),
           ),
           const SpaceHeight(40.0),

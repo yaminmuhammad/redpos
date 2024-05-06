@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../constants/colors.dart';
 
-
 enum ButtonStyle { filled, outlined }
 
 class Button extends StatelessWidget {
@@ -11,7 +10,7 @@ class Button extends StatelessWidget {
     required this.onPressed,
     required this.label,
     this.style = ButtonStyle.filled,
-    this.color = AppColors.primary,
+    this.color = AppColors.red,
     this.textColor = Colors.white,
     this.width = double.infinity,
     this.height = 50.0,
@@ -27,7 +26,7 @@ class Button extends StatelessWidget {
     required this.label,
     this.style = ButtonStyle.outlined,
     this.color = Colors.transparent,
-    this.textColor = AppColors.primary,
+    this.textColor = AppColors.red,
     this.width = double.infinity,
     this.height = 50.0,
     this.borderRadius = 16.0,
