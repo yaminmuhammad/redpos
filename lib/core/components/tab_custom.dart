@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:redpos/core/extensions/build_context_ext.dart';
 
-import '../core/core.dart';
+import '../constants/colors.dart';
 
 class TabCustom extends StatelessWidget {
   final List<TabMenu> children;

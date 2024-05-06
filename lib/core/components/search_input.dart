@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../core/core.dart';
+import '../constants/colors.dart';
+
+
 
 class SearchInput extends StatelessWidget {
   final TextEditingController controller;

@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_fonts/google_fonts.dart';
-
-import 'core/core.dart';
-import 'pages/home/bloc/bloc/checkout_bloc.dart';
-import 'pages/home/pages/main_nav_desktop.dart';
+import 'package:redpos/presentation/auth/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,44 +8,31 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    return BlocProvider(
-      create: (context) => CheckoutBloc(),
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Intensive Club batch 11',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
-          useMaterial3: true,
-          textTheme: GoogleFonts.quicksandTextTheme(
-            Theme.of(context).textTheme,
-          ),
-          appBarTheme: AppBarTheme(
-            color: AppColors.white,
-            elevation: 0,
-            titleTextStyle: GoogleFonts.quicksand(
-              color: AppColors.primary,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w500,
-            ),
-            iconTheme: const IconThemeData(
-              color: AppColors.primary,
-            ),
-          ),
-        ),
-        home: screenWidth < 600
-            ? const Scaffold(
-                body: Center(
-                  child: Text(
-                    'App Khusus Screen With 600 (Tablet Version) ganti resolusi anda.',
-                    style: TextStyle(fontSize: 32),
-                  ),
-                ),
-              )
-            : const MainNavDesktop(),
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        // This is the theme of your application.
+        //
+        // TRY THIS: Try running your application with "flutter run". You'll see
+        // the application has a purple toolbar. Then, without quitting the app,
+        // try changing the seedColor in the colorScheme below to Colors.green
+        // and then invoke "hot reload" (save your changes or press the "hot
+        // reload" button in a Flutter-supported IDE, or press "r" if you used
+        // the command line to start the app).
+        //
+        // Notice that the counter didn't reset back to zero; the application
+        // state is not lost during the reload. To reset the state, use hot
+        // restart instead.
+        //
+        // This works for code too, not just values: Most code changes can be
+        // tested with just a hot reload.
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        useMaterial3: true,
       ),
+      home: const LoginPage(),
     );
   }
 }
