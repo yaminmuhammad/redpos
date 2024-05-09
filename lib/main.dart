@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-
-import 'core/core.dart';
-import 'pages/home/bloc/bloc/checkout_bloc.dart';
-import 'pages/home/pages/main_nav_desktop.dart';
+import 'package:redpos/core/constants/colors.dart';
+import 'package:redpos/data/datasource/auth_remote_datasource.dart';
+import 'package:redpos/presentation/auth/bloc/login/login_bloc.dart';
+import 'package:redpos/presentation/auth/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,14 +13,14 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
     return BlocProvider(
-      create: (context) => CheckoutBloc(),
+      create: (context) => LoginBloc(AuthRemoteDataSource()),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Intensive Club batch 11',
+        title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: AppColors.primary),
           useMaterial3: true,
@@ -40,16 +40,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: screenWidth < 600
-            ? const Scaffold(
-                body: Center(
-                  child: Text(
-                    'App Khusus Screen With 600 (Tablet Version) ganti resolusi anda.',
-                    style: TextStyle(fontSize: 32),
-                  ),
-                ),
-              )
-            : const MainNavDesktop(),
+        home: const LoginPage(),
       ),
     );
   }
