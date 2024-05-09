@@ -1,15 +1,14 @@
 // ignore_for_file: deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:redpos/presentation/auth/bloc/login/login_bloc.dart';
 // import 'package:flutter_posresto_app/presentation/home/dashboard_page.dart';
 import 'package:redpos/presentation/home/dashboard_page.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../core/assets/assets.gen.dart';
 import '../../core/components/buttons.dart';
 import '../../core/components/custom_text_field.dart';
 import '../../core/components/spaces.dart';
-import '../../core/constants/colors.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -68,16 +67,20 @@ class _LoginPageState extends State<LoginPage> {
             obscureText: true,
           ),
           const SpaceHeight(24.0),
-          Button.filled(
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const DashboardPage(),
-                ),
+          BlocBuilder<LoginBloc, LoginState>(
+            builder: (context, state) {
+              return Button.filled(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const DashboardPage(),
+                    ),
+                  );
+                },
+                label: 'Masuk',
               );
             },
-            label: 'Masuk',
           ),
         ],
       ),
