@@ -9,6 +9,9 @@ class AuthRemoteDataSource {
     final url = Uri.parse('${Variables.baseUrl}/auth/sign-in');
     final response = await http.post(
       url,
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest',
+      },
       body: {
         'username': username,
         'password': password,

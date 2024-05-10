@@ -3,8 +3,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:redpos/presentation/auth/bloc/login/login_bloc.dart';
-// import 'package:flutter_posresto_app/presentation/home/dashboard_page.dart';
 import 'package:redpos/presentation/home/dashboard_page.dart';
+// import 'package:flutter_posresto_app/presentation/home/dashboard_page.dart';
+// import 'package:redpos/presentation/home/dashboard_page.dart';
 
 import '../../core/components/buttons.dart';
 import '../../core/components/custom_text_field.dart';
@@ -67,10 +68,11 @@ class _LoginPageState extends State<LoginPage> {
             obscureText: true,
           ),
           const SpaceHeight(24.0),
-          BlocBuilder<LoginBloc, LoginState>(
-            builder: (context, state) {
-              return Button.filled(
-                onPressed: () {
+          BlocListener<LoginBloc, LoginState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                orElse: () {},
+                success: (authResponseModel) {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
@@ -78,9 +80,37 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   );
                 },
-                label: 'Masuk',
+                error: (message) {
+                  return ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(message),
+                      backgroundColor: Colors.red,
+                    ),
+                  );
+                },
               );
             },
+            child: BlocBuilder<LoginBloc, LoginState>(
+              builder: (context, state) {
+                return state.maybeWhen(orElse: () {
+                  return Button.filled(
+                    onPressed: () {
+                      context.read<LoginBloc>().add(
+                            LoginEvent.login(
+                              username: usernameController.text,
+                              password: passwordController.text,
+                            ),
+                          );
+                    },
+                    label: 'Masuk',
+                  );
+                }, loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                });
+              },
+            ),
           ),
         ],
       ),

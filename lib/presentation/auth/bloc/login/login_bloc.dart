@@ -14,7 +14,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   ) : super(const _Initial()) {
     on<_Login>((event, emit) async {
       emit(const _Loading());
-
+      await Future.delayed(const Duration(seconds: 3));
       final result = await authRemoteDataSource.login(
         event.username,
         event.password,
