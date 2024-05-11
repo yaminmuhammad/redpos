@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:redpos/core/constants/colors.dart';
+import 'package:redpos/data/datasource/auth_local_datasource.dart';
 import 'package:redpos/data/datasource/auth_remote_datasource.dart';
 import 'package:redpos/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:redpos/presentation/auth/login_page.dart';
+import 'package:redpos/presentation/home/dashboard_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,7 +42,32 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-        home: const LoginPage(),
+        home: FutureBuilder<bool>(
+          future: AuthLocalDataSource().isAuthDataExist(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
+            if (snapshot.hasData) {
+              if (snapshot.data!) {
+                return const DashboardPage();
+              } else {
+                return const LoginPage();
+              }
+            }
+            return const Scaffold(
+              body: Center(
+                child: Center(
+                  child: Text('Error'),
+                ),
+              ),
+            );
+          },
+        ),
       ),
     );
   }
