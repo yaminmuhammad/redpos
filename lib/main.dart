@@ -7,7 +7,7 @@ import 'package:redpos/data/datasource/auth_remote_datasource.dart';
 import 'package:redpos/presentation/auth/bloc/login/login_bloc.dart';
 import 'package:redpos/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:redpos/presentation/auth/login_page.dart';
-import 'package:redpos/presentation/home/dashboard_page.dart';
+import 'package:redpos/presentation/home/pages/dashboard_page.dart';
 
 void main() {
   runApp(const MyApp());

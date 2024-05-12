@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:redpos/data/datasource/auth_local_datasource.dart';
 import 'package:redpos/presentation/auth/bloc/login/login_bloc.dart';
-import 'package:redpos/presentation/home/dashboard_page.dart';
+import 'package:redpos/presentation/home/pages/dashboard_page.dart';
 // import 'package:flutter_posresto_app/presentation/home/dashboard_page.dart';
 // import 'package:redpos/presentation/home/dashboard_page.dart';
 
