@@ -5,6 +5,7 @@ import 'package:redpos/core/constants/colors.dart';
 import 'package:redpos/data/datasource/auth_local_datasource.dart';
 import 'package:redpos/data/datasource/auth_remote_datasource.dart';
 import 'package:redpos/presentation/auth/bloc/login/login_bloc.dart';
+import 'package:redpos/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:redpos/presentation/auth/login_page.dart';
 import 'package:redpos/presentation/home/dashboard_page.dart';
 
@@ -18,8 +19,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => LoginBloc(AuthRemoteDataSource()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => LoginBloc(AuthRemoteDataSource()),
+        ),
+        BlocProvider(
+          create: (context) => LogoutBloc(AuthRemoteDataSource()),
+        ),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',

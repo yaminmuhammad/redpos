@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:redpos/data/datasource/auth_local_datasource.dart';
 import 'package:redpos/data/models/response/auth_response_model.dart';
+import 'package:redpos/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:redpos/presentation/auth/login_page.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -32,19 +34,48 @@ class _DashboardPageState extends State<DashboardPage> {
           children: [
             const Text('Welcom to Dashboard'),
             Text('${data?.redirectTo}'),
-            SizedBox(
+            const SizedBox(
               height: 100,
             ),
-            ElevatedButton(
-              onPressed: () {
-                AuthLocalDataSource().removeAuthData().then((value) {
-                  Navigator.pushAndRemoveUntil(context,
-                      MaterialPageRoute(builder: (context) {
-                    return const LoginPage();
-                  }), (route) => false);
-                });
+            BlocListener<LogoutBloc, LogoutState>(
+              listener: (context, state) {
+                state.maybeMap(
+                  orElse: () {},
+                  error: (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                          e.message,
+                        ),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  },
+                  success: (value) {
+                    AuthLocalDataSource().removeAuthData();
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Logout Success'),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return const LoginPage();
+                        },
+                      ),
+                    );
+                  },
+                );
               },
-              child: const Text('Logout'),
+              child: ElevatedButton(
+                onPressed: () {
+                  context.read<LogoutBloc>().add(const LogoutEvent.logout());
+                },
+                child: const Text('Logout'),
+              ),
             ),
           ],
         ),
